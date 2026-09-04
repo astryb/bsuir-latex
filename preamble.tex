@@ -1,4 +1,4 @@
-% Version: 1.1.1
+% Version: 1.1.2
 
 % Основной стиль текста на странице
 
@@ -227,6 +227,9 @@
     aboveskip=\baselineskip,%
     belowskip=0em%
 }
+
+% https://tex.stackexchange.com/questions/716432/package-array-error-illegal-pream-token-caption-c-used
+\usepackage{xltabular}
 
 \captionsetup[table]{%
     labelformat=stbtable,%
