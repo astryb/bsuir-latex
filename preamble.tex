@@ -1,4 +1,4 @@
-% Version: 1.0.0
+% Version: 1.1.0
 
 % Основной стиль текста на странице
 
@@ -36,6 +36,23 @@
 
 \setlength{\cftbeforetoctitleskip}{-1em}
 \setlength{\cftaftertoctitleskip}{1em}
+
+% Table of contents and its centering
+% Выравнивание заголовка по центру (да, да, хак с отступом слева \hspace{0.31\textwidth})
+% т.к. окружение center и \centering не работают
+\renewcommand{\cfttoctitlefont}{\hspace{0.35\textwidth}\bfseries\large}
+\renewcommand{\cftbeforetoctitleskip}{-1em}
+
+% Hides the abstract from the ToC
+% (use \tocless before csection)
+% Прячем реферат от появления в содержании
+\newcommand{\nocontentsline}[3]{}
+\newcommand{\tocless}[2]{\bgroup\let\addcontentsline=\nocontentsline#1{#2}\egroup}
+
+\addto\captionsrussian{% 
+	\renewcommand{\contentsname}%
+	{\centering\normalfont\bfseries{СОДЕРЖАНИЕ}}%
+}
 
 \makeatletter
 % \renewcommand{\numberline}[1]{%
@@ -281,6 +298,12 @@
 % Стиль библиографии
 
 \usepackage[square, numbers, sort&compress]{natbib}
+
+% СТП 01-2024 п.2.8.1
+\addto\captionsrussian{% 
+	\renewcommand{\bibname}%
+	{\centering\normalfont\normalsize\bfseries \vspace{-20mm} {СПИСОК~ИСПОЛЬЗОВАННЫХ~ИСТОЧНИКОВ}}%
+}
 
 \setlength{\bibsep}{0em}
 
