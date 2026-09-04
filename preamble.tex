@@ -1,4 +1,4 @@
-% Version: 1.1.0
+% Version: 1.1.1
 
 % Основной стиль текста на странице
 
@@ -349,6 +349,15 @@
 
 \usepackage{fancyvrb}
 \usepackage{verbatim}
+
+%\newcommand{\code}[1]{{\small\texttt{#1}}}
+% Оформление фрагментов кода или чего другого моноширинным (телетайпным) шрифтом
+\newcommand{\code}[1]{{\texttt{#1}}}
+
+% \file{main.cpp}. 
+% Автоматически ставит "елочки" возле названия файла.
+% Команда просто для удобства ориентирования в тексте при работе в LaTeX
+\newcommand{\file}[1]{<<#1>>}
 
 \setmonofont{Courier New}
 \fvset{xleftmargin=\parindent}
