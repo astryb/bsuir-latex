@@ -1,4 +1,4 @@
-% Version: 1.1.3
+% Version: 1.2.3
 
 % Основной стиль текста на странице
 
@@ -18,6 +18,46 @@
 
 \usepackage{indentfirst}
 \setlength{\parindent}{\parinlen}    
+
+%   СТП 01-2024 п. 2.1.1: 
+% "В названиях разделов, подразделов,
+% таблиц и рисунков не допускаются переносы в словах,
+% в остальной части автоматические переносы в тексте пояснительной записки разрешены"
+%   Это значит, что в обычном тексте пояснительной записки
+% вы можете использовать стандартные автоматические переносы слов в LaTeX. НО:
+% Если преподаватель или проверяющий записку имеет что-то против переноса слов
+% Если хотите, чтобы было сделано "будто в Word"
+% Тогда расскоментировать две строки снизу, если пункты выше вам подходят
+% \usepackage[none]{hyphenat}
+% \sloppy
+
+% Команда \sloppy используется для того,
+% чтобы разрешить компилятору делать более широкие пробелы между словами 
+% (Выравнивание по ширине в Word)
+% если нужно применить на определенный участок текста: {\sloppy ваш текст \par}
+
+% Now your PDF "searchable and copyable".
+\usepackage{cmap}
+
+% lists counters
+\usepackage{zref-totpages} % \ztotpages~с. 
+\usepackage{lastpage} % \pageref{LastPage}~с.
+
+\usepackage{indentfirst}
+\setlength{\parindent}{\parinlen}    
+
+\usepackage{xspace}
+
+% команда табуляции и пустой строки по стп
+\newcommand\tab[1][1.25cm]{\hspace*{#1}}
+\newcommand\emptyline{\bigskip}
+
+% Название C++ в виде команды, на примере \latex
+\newcommand\cpp{С\texttt{++}\xspace}
+
+% СТП 01-2024 п.2.5.3 - примерно стандартная высота изображений
+\newlength{\defaultPictureHeight}
+\defaultPictureHeight=80mm
 
 % Стиль сносок
 
