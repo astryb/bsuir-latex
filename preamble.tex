@@ -1,4 +1,4 @@
-% Version: 1.0.0
+% Version: 1.2.3
 
 % Основной стиль текста на странице
 
@@ -19,6 +19,46 @@
 \usepackage{indentfirst}
 \setlength{\parindent}{\parinlen}    
 
+%   СТП 01-2024 п. 2.1.1: 
+% "В названиях разделов, подразделов,
+% таблиц и рисунков не допускаются переносы в словах,
+% в остальной части автоматические переносы в тексте пояснительной записки разрешены"
+%   Это значит, что в обычном тексте пояснительной записки
+% вы можете использовать стандартные автоматические переносы слов в LaTeX. НО:
+% Если преподаватель или проверяющий записку имеет что-то против переноса слов
+% Если хотите, чтобы было сделано "будто в Word"
+% Тогда расскоментировать две строки снизу, если пункты выше вам подходят
+% \usepackage[none]{hyphenat}
+% \sloppy
+
+% Команда \sloppy используется для того,
+% чтобы разрешить компилятору делать более широкие пробелы между словами 
+% (Выравнивание по ширине в Word)
+% если нужно применить на определенный участок текста: {\sloppy ваш текст \par}
+
+% Now your PDF "searchable and copyable".
+\usepackage{cmap}
+
+% lists counters
+\usepackage{zref-totpages} % \ztotpages~с. 
+\usepackage{lastpage} % \pageref{LastPage}~с.
+
+\usepackage{indentfirst}
+\setlength{\parindent}{\parinlen}    
+
+\usepackage{xspace}
+
+% команда табуляции и пустой строки по стп
+\newcommand\tab[1][1.25cm]{\hspace*{#1}}
+\newcommand\emptyline{\bigskip}
+
+% Название C++ в виде команды, на примере \latex
+\newcommand\cpp{С\texttt{++}\xspace}
+
+% СТП 01-2024 п.2.5.3 - примерно стандартная высота изображений
+\newlength{\defaultPictureHeight}
+\defaultPictureHeight=80mm
+
 % Стиль сносок
 
 \usepackage{perpage}
@@ -36,6 +76,24 @@
 
 \setlength{\cftbeforetoctitleskip}{-1em}
 \setlength{\cftaftertoctitleskip}{1em}
+
+% Table of contents and its centering
+% Выравнивание заголовка по центру (да, да, хак с отступом слева \hspace{0.31\textwidth})
+% т.к. окружение center и \centering не работают
+\renewcommand{\cfttoctitlefont}{\hspace{0.35\textwidth}\bfseries\large}
+\renewcommand{\cftbeforetoctitleskip}{-1em}
+
+% СТП 01-2024 п. 2.2.8
+% Hides the abstract from the ToC
+% (use \tocless before csection)
+% Прячем реферат от появления в содержании
+\newcommand{\nocontentsline}[3]{}
+\newcommand{\tocless}[2]{\bgroup\let\addcontentsline=\nocontentsline#1{#2}\egroup}
+
+\addto\captionsrussian{% 
+	\renewcommand{\contentsname}%
+	{\centering\normalfont\bfseries{СОДЕРЖАНИЕ}}%
+}
 
 \makeatletter
 % \renewcommand{\numberline}[1]{%
@@ -177,6 +235,9 @@
 
 \usepackage{graphicx}
 \DeclareGraphicsExtensions{.pdf,.png,.jpg,.eps}
+% Место хранения изображений. Улучшение струкутры проекта
+% все изображение должны храниться в папке images, созданной в папке проекта LaTeX
+\graphicspath{{images/}}
 
 % Позиционируемые графические изображения
 
@@ -209,6 +270,9 @@
     aboveskip=\baselineskip,%
     belowskip=0em%
 }
+
+% https://tex.stackexchange.com/questions/716432/package-array-error-illegal-pream-token-caption-c-used
+\usepackage{xltabular}
 
 \captionsetup[table]{%
     labelformat=stbtable,%
@@ -282,6 +346,12 @@
 
 \usepackage[square, numbers, sort&compress]{natbib}
 
+% СТП 01-2024 п.2.8.1
+\addto\captionsrussian{% 
+	\renewcommand{\bibname}%
+	{\centering\normalfont\normalsize\bfseries \vspace{-20mm} {СПИСОК~ИСПОЛЬЗОВАННЫХ~ИСТОЧНИКОВ}}%
+}
+
 \setlength{\bibsep}{0em}
 
 \bibliographystyle{tex/gost780u} % Для подключения в виде gitmodule по пути tex
@@ -325,6 +395,15 @@
 
 \usepackage{fancyvrb}
 \usepackage{verbatim}
+
+%\newcommand{\code}[1]{{\small\texttt{#1}}}
+% Оформление фрагментов кода или чего другого моноширинным (телетайпным) шрифтом
+\newcommand{\code}[1]{{\texttt{#1}}}
+
+% \file{main.cpp}. 
+% Автоматически ставит "елочки" возле названия файла.
+% Команда просто для удобства ориентирования в тексте при работе в LaTeX
+\newcommand{\file}[1]{<<#1>>}
 
 \setmonofont{Courier New}
 \fvset{xleftmargin=\parindent}
